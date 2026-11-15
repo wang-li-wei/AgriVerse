@@ -1,0 +1,76 @@
+[
+  {
+    "fruit_id": "T01",
+    "plant_id": "P01",
+    "position": [-0.64, 1.39, 0.57],
+    "ripeness_stage": "red",
+    "ripeness_score": 0.96,
+    "harvestable": true,
+    "occluded": false,
+    "status": "on_plant",
+    "action_id": "harvest_01",
+    "truss_id": "P01_TRUSS_01"
+  },
+  {
+    "fruit_id": "T02",
+    "plant_id": "P01",
+    "position": [0.57, 2.36, 0.26],
+    "ripeness_stage": "turning",
+    "ripeness_score": 0.63,
+    "harvestable": false,
+    "occluded": false,
+    "status": "on_plant",
+    "action_id": "harvest_02",
+    "truss_id": "P01_TRUSS_02"
+  },
+  {
+    "fruit_id": "T03",
+    "plant_id": "P01",
+    "position": [-0.34, 1.17, 0.71],
+    "ripeness_stage": "red",
+    "ripeness_score": 0.93,
+    "harvestable": true,
+    "occluded": false,
+    "status": "on_plant",
+    "action_id": "harvest_03",
+    "truss_id": "P01_TRUSS_01"
+  },
+  {
+    "fruit_id": "T04",
+    "plant_id": "P01",
+    "position": [0.85, 2.13, 0.12],
+    "ripeness_stage": "green",
+    "ripeness_score": 0.31,
+    "harvestable": false,
+    "occluded": false,
+    "status": "on_plant",
+    "action_id": "harvest_04",
+    "truss_id": "P01_TRUSS_02"
+  },
+  {
+    "fruit_id": "T05",
+    "plant_id": "P01",
+    "position": [-0.94, 1.12, 0.35],
+    "ripeness_stage": "red",
+    "ripeness_score": 0.98,
+    "harvestable": true,
+    "occluded": false,
+    "status": "on_plant",
+    "action_id": "harvest_05",
+    "truss_id": "P01_TRUSS_01"
+  },
+  {
+    "fruit_id": "T06",
+    "plant_id": "P01",
+    "position": [0.5, 2.1, 0.53],
+    "ripeness_stage": "red",
+    "ripeness_score": 0.89,
+    "harvestable": false,
+    "occluded": true,
+    "status": "on_plant",
+    "action_id": "harvest_06",
+    "note": "红熟但原采摘规则仍为暂缓；拨叶仅补充观察，不自动授权采摘",
+    "truss_id": "P01_TRUSS_02",
+    "occluding_leaf_id": "P01_LEAF_06"
+  }
+]

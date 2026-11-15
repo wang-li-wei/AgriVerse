@@ -1,0 +1,32 @@
+[
+  {
+    "action_id": "harvest_01",
+    "target_id": "T01",
+    "approach_offset": [0, 0, 0.45]
+  },
+  {
+    "action_id": "harvest_02",
+    "target_id": "T02",
+    "approach_offset": [0.2, 0, 0.4]
+  },
+  {
+    "action_id": "harvest_03",
+    "target_id": "T03",
+    "approach_offset": [0.3, 0, 0.4]
+  },
+  {
+    "action_id": "harvest_04",
+    "target_id": "T04",
+    "approach_offset": [0, 0.2, 0.4]
+  },
+  {
+    "action_id": "harvest_05",
+    "target_id": "T05",
+    "approach_offset": [0.1, 0.1, 0.45]
+  },
+  {
+    "action_id": "harvest_06",
+    "target_id": "T06",
+    "approach_offset": [0.3, 0, 0.45]
+  }
+]

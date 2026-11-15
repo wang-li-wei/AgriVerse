@@ -1,0 +1,160 @@
+{
+  "plant_id": "P01",
+  "stem_points": [
+    [0, 0.42, 0],
+    [0.045, 1.2, 0.025],
+    [-0.025, 2.05, -0.015],
+    [0.035, 2.9, -0.025],
+    [0, 3.64, 0]
+  ],
+  "leaves": [
+    {
+      "leaf_id": "P01_LEAF_01",
+      "position": [0, 0.67, 0.025],
+      "rotation": [0, 0.3, -0.22],
+      "scale": 0.98,
+      "pairs": 4,
+      "variant": 0
+    },
+    {
+      "leaf_id": "P01_LEAF_02",
+      "position": [0.023, 0.925, 0.014],
+      "rotation": [0.139, 2.7, -0.12],
+      "scale": 1.1,
+      "pairs": 4,
+      "variant": 1
+    },
+    {
+      "leaf_id": "P01_LEAF_03",
+      "position": [0.034, 1.18, -0.01],
+      "rotation": [-0.036, 5.0999, 0.05],
+      "scale": 1.13,
+      "pairs": 5,
+      "variant": 2
+    },
+    {
+      "leaf_id": "P01_LEAF_04",
+      "position": [0.03, 1.435, -0.025],
+      "rotation": [-0.13, 7.4999, 0.12],
+      "scale": 1.16,
+      "pairs": 4,
+      "variant": 0
+    },
+    {
+      "leaf_id": "P01_LEAF_05",
+      "position": [0.012, 1.69, -0.016],
+      "rotation": [0.069, 9.8998, 0.18],
+      "scale": 1.1,
+      "pairs": 5,
+      "variant": 1
+    },
+    {
+      "leaf_id": "P01_LEAF_06",
+      "position": [0, 2.16, 0],
+      "rotation": [0.45, -0.9, 0.35],
+      "scale": 0.96,
+      "pairs": 4,
+      "variant": 2,
+      "terminal_scale": 0.95
+    },
+    {
+      "leaf_id": "P01_LEAF_07",
+      "position": [0.02, 3.0211, 0],
+      "rotation": [0.95, -0.95, -0.15],
+      "scale": 0.85,
+      "pairs": 4,
+      "variant": 0
+    },
+    {
+      "leaf_id": "P01_LEAF_08",
+      "position": [-0.034, 2.455, 0.019],
+      "rotation": [-0.087, 17.0997, 0.16],
+      "scale": 0.96,
+      "pairs": 4,
+      "variant": 1
+    },
+    {
+      "leaf_id": "P01_LEAF_09",
+      "position": [-0.022, 2.71, -0.004],
+      "rotation": [0.12, 19.4997, 0.24],
+      "scale": 0.74,
+      "pairs": 3,
+      "variant": 2
+    },
+    {
+      "leaf_id": "P01_LEAF_10",
+      "position": [0.001, 3.17, -0.023],
+      "rotation": [0.056, 21.8996, 0.32],
+      "scale": 0.66,
+      "pairs": 3,
+      "variant": 0
+    },
+    {
+      "leaf_id": "P01_LEAF_11",
+      "position": [0.023, 3.38, -0.021],
+      "rotation": [-0.135, 24.2996, 0.38],
+      "scale": 0.55,
+      "pairs": 3,
+      "variant": 1
+    },
+    {
+      "leaf_id": "P01_LEAF_12",
+      "position": [0.035, 3.55, 0],
+      "rotation": [-0.021, 26.6996, 0.44],
+      "scale": 0.42,
+      "pairs": 3,
+      "variant": 2
+    }
+  ],
+  "trusses": [
+    {
+      "truss_id": "P01_TRUSS_01",
+      "position": [0.015, 1.76, 0.01],
+      "axis": [
+        [0, 0, 0],
+        [-0.22, -0.08, 0.16],
+        [-0.48, -0.19, 0.32],
+        [-0.76, -0.28, 0.39]
+      ],
+      "fruit_ids": ["T01", "T03", "T05"],
+      "attachments": [
+        [-0.3, -0.13, 0.22],
+        [-0.48, -0.19, 0.32],
+        [-0.7, -0.26, 0.38]
+      ],
+      "nearby_leaf_ids": ["P01_LEAF_03", "P01_LEAF_04"]
+    },
+    {
+      "truss_id": "P01_TRUSS_02",
+      "position": [-0.015, 2.66, 0],
+      "axis": [
+        [0, 0, 0],
+        [0.22, -0.09, 0.1],
+        [0.45, -0.24, 0.24],
+        [0.65, -0.33, 0.24]
+      ],
+      "fruit_ids": ["T02", "T04", "T06"],
+      "attachments": [
+        [0.27, -0.12, 0.13],
+        [0.6, -0.3, 0.24],
+        [0.45, -0.24, 0.24]
+      ],
+      "nearby_leaf_ids": ["P01_LEAF_06", "P01_LEAF_08"]
+    }
+  ],
+  "reveal": {
+    "region_id": "LEAF_01",
+    "occluding_leaf_id": "P01_LEAF_06",
+    "carrier_leaf_id": "P01_LEAF_07",
+    "leaflet_id": "P01_LEAF_07_TERMINAL",
+    "affected_leaf_ids": ["P01_LEAF_05", "P01_LEAF_08"],
+    "fruit_ids": ["T06"],
+    "contact_position": [0.408148, 2.207313, 0.594049],
+    "open_rotation": [0.05, 1.28, -0.24]
+  },
+  "robot": {
+    "home": [1.5, 1.65, 0.2],
+    "basket": [1.7, 0.9, 1.35],
+    "shoulder": [1.72, 0.82, -0.18]
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "duration_ms": 9000,
+  "harvest": {
+    "phases": [
+      "接近目标",
+      "夹持果实",
+      "分离果柄",
+      "转运至收集箱",
+      "松爪放置",
+      "返回待机"
+    ],
+    "home": [1.5, 1.65, 0.2],
+    "basket": [1.7, 0.9, 1.35],
+    "duration_ms": 9000,
+    "stages": [
+      {
+        "key": "approach",
+        "start": 0,
+        "label": "机械臂接近目标"
+      },
+      {
+        "key": "align",
+        "start": 0.23,
+        "label": "末端对准果实与果梗"
+      },
+      {
+        "key": "grip",
+        "start": 0.34,
+        "label": "夹爪逐渐闭合"
+      },
+      {
+        "key": "detach",
+        "start": 0.46,
+        "label": "果实与果梗分离"
+      },
+      {
+        "key": "transport",
+        "start": 0.53,
+        "label": "沿弧线转运至收集箱"
+      },
+      {
+        "key": "release",
+        "start": 0.75,
+        "label": "打开夹爪，缓冲落箱"
+      },
+      {
+        "key": "retreat",
+        "start": 0.86,
+        "label": "机械臂退出并重新定位"
+      },
+      {
+        "key": "verify",
+        "start": 0.96,
+        "label": "检查原果实与收集箱位置"
+      }
+    ]
+  },
+  "reveal": {
+    "target_id": "LEAF_01",
+    "phases": ["接近遮挡叶片", "缓慢拨叶", "保持观察位置", "返回待机"],
+    "target": [0.408148, 2.207313, 0.594049],
+    "duration_ms": 8000,
+    "stages": [
+      {
+        "key": "approach",
+        "start": 0,
+        "label": "机械臂接近遮挡复叶"
+      },
+      {
+        "key": "contact",
+        "start": 0.23,
+        "label": "末端接触叶轴"
+      },
+      {
+        "key": "deflect",
+        "start": 0.34,
+        "label": "复叶偏转，邻叶轻微牵动"
+      },
+      {
+        "key": "hold",
+        "start": 0.6,
+        "label": "保持观察位置"
+      },
+      {
+        "key": "observe_region",
+        "start": 0.68,
+        "label": "补充查看模拟区域，非病害识别"
+      },
+      {
+        "key": "retreat",
+        "start": 0.78,
+        "label": "机械臂退出，叶片保留观察位置"
+      },
+      {
+        "key": "verify",
+        "start": 0.96,
+        "label": "检查叶片偏转与区域可见性"
+      }
+    ]
+  }
+}

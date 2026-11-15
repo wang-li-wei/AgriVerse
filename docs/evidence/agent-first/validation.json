@@ -1,0 +1,38 @@
+{
+  "recorded_at": "2026-11-15T16:06:13.707645+09:00",
+  "workspace": "/home/wei/文档/ChatGPT/ai农林agent",
+  "git_branch": "master",
+  "head": null,
+  "mode": "simulation_policy",
+  "online_model_validated": false,
+  "tests": {
+    "build": "passed",
+    "backend": "38 passed",
+    "full_browser_regression": "10 passed (6.3m)",
+    "focused_multi_harvest_after_completed_timeline_collapse": "1 passed (45.0s)"
+  },
+  "validation_scope": "完整浏览器回归后调整完成态默认折叠并复跑多果；增强决策事实字段后复跑后端38项。真实模型选择使用测试Provider验证，两个原生协议使用MockTransport验证，未联网调用模型。",
+  "mission_id": "4636d37e-1e7b-4a3e-a25d-a9b30f4b1c22",
+  "run_id": "a28fb599-355b-46da-9e8c-b48785a70d36",
+  "event_count": 82,
+  "basket_count": 3,
+  "artifacts": {
+    "multi-harvest.webm": "5cf30336be571828286d059123e01fbfdd43d6582360076c17bb842e0e4fdd57",
+    "multi-completed.png": "0b577900b1fe552ed90ceb597cda37825e49694539044f71e99ebfcd5206c80f",
+    "multi-events.json": "ba95b97cdd8b923426dad1ea4a5c4c530ffdee4c24834fa32bfd1d518c3bb242"
+  },
+  "source_sha256": {
+    "backend/agent.py": "4c7a84ede3e042fdcb05643fb6389a0cb0eeb6e8c5da04bdcae90c23ca61c24a",
+    "backend/models.py": "a00f3c4f6777146467c1401e215c2568eaa0889c46982d58e8f4a5d719d24e86",
+    "backend/skills.py": "2e22cf689db3a21a6a55fdd24ee31232e7d1b4ac4e81ba4827b4ec66604e9e8a",
+    "backend/main.py": "f1e9eaa2e039e131bc5d4d447692ae6ae2aaf5610f597bc1dc73ad97b3185041",
+    "backend/missions.py": "090dd222fca7538e19b817cba6c481ed3796817783c1f1264ce4b1dbccc146df",
+    "backend/observations.py": "eba8134ed167ea3c29486c605a75e350c8ab96e3b72828fa88d16af095ff7bf6",
+    "backend/verification.py": "159ca35922cf4b558f23c9251b57c8dc243287b56e5a80aea0071e4a907d9b36",
+    "backend/memory.py": "0767bd1d8bc1ccd1420f3a6920e5a5be4cccd833d529f4a92fefadd8386ffea8",
+    "src/scene/SceneMotion.tsx": "6f929c9732828922327e21169d88c139de628317536e5f031b02a0aff0b8fe3e",
+    "src/scene/Plants.tsx": "93b856530478c733fbb5da1f976c41e20a79554dd5c52b4b0596aa95342a355b",
+    "src/scene/Robot.tsx": "6528ebe1fab6f928e73a4b7d597c764231c31ce9f205ec7b9593e67dcc607f62",
+    "data/plant_structure.json": "ba38ec336e81dd178725dc95971f9a211ec50477936dc6f9872b6555d93e0f58"
+  }
+}

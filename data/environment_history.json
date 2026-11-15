@@ -1,0 +1,58 @@
+[
+  {
+    "date": "11-08",
+    "temperature": 23.1,
+    "humidity": 66,
+    "light_intensity": 18200,
+    "co2": 710,
+    "soil_moisture": 61
+  },
+  {
+    "date": "11-09",
+    "temperature": 23.8,
+    "humidity": 68,
+    "light_intensity": 19500,
+    "co2": 720,
+    "soil_moisture": 63
+  },
+  {
+    "date": "11-10",
+    "temperature": 24.3,
+    "humidity": 70,
+    "light_intensity": 20400,
+    "co2": 735,
+    "soil_moisture": 60
+  },
+  {
+    "date": "11-11",
+    "temperature": 25.6,
+    "humidity": 77,
+    "light_intensity": 21700,
+    "co2": 748,
+    "soil_moisture": 64
+  },
+  {
+    "date": "11-12",
+    "temperature": 25.1,
+    "humidity": 79,
+    "light_intensity": 19300,
+    "co2": 728,
+    "soil_moisture": 66
+  },
+  {
+    "date": "11-13",
+    "temperature": 24.6,
+    "humidity": 73,
+    "light_intensity": 20100,
+    "co2": 742,
+    "soil_moisture": 63
+  },
+  {
+    "date": "11-14",
+    "temperature": 24.2,
+    "humidity": 68,
+    "light_intensity": 21600,
+    "co2": 756,
+    "soil_moisture": 62
+  }
+]

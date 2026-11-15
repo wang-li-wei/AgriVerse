@@ -1,0 +1,21 @@
+[
+  {
+    "plant_id": "P01",
+    "cultivar": "普罗旺斯 · 大果番茄",
+    "growth_stage": "结果期 · 第 9 周",
+    "planting_date": "2026-09-12",
+    "health_status": "一处预置模拟病斑，待专家核实",
+    "observation_status": "occluded",
+    "suspicious_regions": [
+      {
+        "region_id": "LEAF_01",
+        "position": [0.725402, 2.180003, 0.537113],
+        "description": "斑枯病外观模拟病斑：浅黄晕圈、褐色边缘与浅色坏死中心；预置演示，非检测或确诊",
+        "occluded": true,
+        "carrier_leaf_id": "P01_LEAF_07",
+        "leaflet_id": "P01_LEAF_07_TERMINAL",
+        "occluding_leaf_id": "P01_LEAF_06"
+      }
+    ]
+  }
+]
