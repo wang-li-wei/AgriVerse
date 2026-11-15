@@ -6,6 +6,8 @@
 
 多人协作、Fork / Pull Request 流程和提交前检查见 [协作开发说明](CONTRIBUTING.md)。
 
+下一阶段的 [空间智能体工作台审查与产品方案](docs/design/AGENT_WORKBENCH_REVIEW.md) 已整理，附 [交互线框](docs/design/workbench-wireframes.html) 与三角色/窄屏示意。该方案尚未实施，不改变当前应用、模型或动作协议；本地可单独预览设计文件，线框不会调用后端。
+
 ## 一键启动
 
 需要 **Node.js 22+、Python 3.11+**。本次开发环境已经准备好项目内 `.tools/bin/node` 和 `.venv`；脚本会优先使用它们，不修改系统 Node/Python。

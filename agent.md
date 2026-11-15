@@ -35,6 +35,8 @@ AgriVerse 是面向农业智能体创新竞赛的多角色农业 Agent 原型。
 5. [AGENT_MIGRATION](docs/AGENT_MIGRATION.md)：改造清单、兼容性及历史验证范围。
 6. [CONTRIBUTING](CONTRIBUTING.md)：多账号、Fork、分支和 Pull Request。
 
+下一阶段产品体验设计见 [空间智能体工作台审查与方案](docs/design/AGENT_WORKBENCH_REVIEW.md) 和 [可交互线框](docs/design/workbench-wireframes.html)。它们是待实施方案，不代表当前产品已经更换布局；含源码依据、事件映射、Spatial Attention、World Diff、三角色体验与分阶段验收。
+
 早期视觉与执行报告保存在 [PLANT_UPGRADE](docs/PLANT_UPGRADE.md)、[VISUAL_REFINEMENT](docs/VISUAL_REFINEMENT.md)、[EXECUTION_VISIBILITY](docs/EXECUTION_VISIBILITY.md)。它们描述各轮历史交付，不应覆盖当前源码事实。
 
 ## 3. 当前能力与模式：必须如实表述
@@ -285,6 +287,7 @@ npm run test
 
 | 日期 | 内容 | 验证范围 |
 | --- | --- | --- |
+| 2026-11-15 | 完成空间智能体工作台产品审查、信息架构、三角色/窄屏线框、事件映射与实施计划；仅文档和独立设计资产，未改变生产源码或协议 | 当前页面只读测量；已保存事件顺序核对；设计原型浏览器检查；本地链接/行号及差异检查，未重跑业务测试或调用模型 |
 | 2026-11-15 | 接入 DeepSeek Flash，增加稳定接口适配、历史转换、只读连接检查和明确收集箱字段；本地 .env 保存凭证，源码/说明同步 GitHub | 构建成功；后端 46 项；三角色 DEMO 浏览器 1 项；真实 DeepSeek 两轮只读及浏览器 T01 采摘闭环，证据见 DEEPSEEK_SETUP |
 | 2026-11-15 | 建立项目主题、真实能力、调用链、19 项 Skill、状态/场景约定、运行/测试与持久化总览；明确后续修改更新 agent.md 并同步 GitHub | 根据当前源码和已保存报告核对；本次仅文档变更，检查链接与差异，不重新声明业务测试通过 |
 
@@ -293,3 +296,11 @@ npm run test
 新增 `deepseek` Provider、默认官方地址/模型、非 thinking 工具模式、2048 输出上限及稳定端点 Schema 兼容。DeepSeek 返回的推理字段不会进入公开事件或新保存的模型历史。`query_crop_status` 保留 collected，同时新增 basket_count，避免模型误读收集箱统计。Settings 的模型说明已改为确认后继续同一任务决策。
 
 真实浏览器实测已完成同 Mission 的计划、确认、模型选择采摘动作、原 Group 回执及最终提交。当前实际验证与重跑结果见 [DEEPSEEK_SETUP](docs/DEEPSEEK_SETUP.md)；本地 `.env` 密钥禁止进入任何提交、日志、截图或证据。
+
+### 空间智能体工作台设计补充（待实施）
+
+本轮审查基线为 `df95c2a`。当前 UI 仍是 App 的场景/Insights 与右侧 AgentPanel；ExecutionTimeline 只取最后一个 Run，store 的执行记录过滤掉 state/confirmation/action，state 直接覆盖当前 World。不能将设计线框当作已上线能力。
+
+拟实施顺序：事件语义与快照投影 → 常驻场景和独立对话/过程布局 → Mission Trajectory 与唯一授权入口 → 只读 Spatial Attention → 经验证提交的 World Diff → 三角色呈现与回归。沿用现有 Zustand、Mission/NDJSON 和 SceneMotion，不增加模型能力或另一套动作时钟。
+
+特别保护：区分用户检查、Agent 当前关注和历史关联对象；不依赖 DEV 窗口调试对象；未知空间锚点明确不可定位；不把模拟业务遮挡关系当作真实图像感知。`verification progress` 即使 task_verified=true 也可能尚未提交，须匹配最终验证和权威 after；拨叶最终 commit 为 null，不能照搬采摘 commit 判定。历史浏览不覆盖 live world、不重播动作、不更改原果实 UUID。详见上述设计文档与源代码行号。
