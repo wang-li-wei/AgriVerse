@@ -36,7 +36,7 @@ Fork 协作时，`origin` 指向自己的 Fork，并将本仓库设为 `upstream
 
 ```bash
 npm run build
-.venv/bin/python -m pytest -q tests/test_agent.py tests/test_missions.py
+.venv/bin/python -m pytest -q tests/test_agent.py tests/test_missions.py tests/test_providers.py
 # 首次运行浏览器测试需准备本地 Chromium：
 npx playwright install chromium --only-shell
 npm run test
@@ -61,3 +61,5 @@ Pull Request 请说明改动目的、影响范围、实际测试结果，以及�
 - 不同开发者使用各自的本地环境与数据库；共享代码和预置模拟数据，不共享个人会话状态。
 
 架构迁移及验证记录见 [AGENT_MIGRATION](docs/AGENT_MIGRATION.md)。
+
+真实模型检查须显式运行 `scripts/check_model.py`，会产生两次模型 API 请求。日常浏览器回归启动的后端强制 DEMO；如果已经有 REAL_AGENT 服务占用测试端口，请先停止该服务再运行预置流程测试。DeepSeek 配置见 [接入说明](docs/DEEPSEEK_SETUP.md)，每位协作者使用自己的本地凭证。

@@ -177,6 +177,7 @@ async def run_agent(session: Session, request: ChatRequest, emit, provider: Prov
     if not session.mission:
         session.mission = Mission(role=request.role, goal=request.message, mode='model' if provider.enabled else 'simulation_policy')
         session.missions[session.mission.id] = session.mission
+    session.mission.mode = 'model' if provider.enabled else 'simulation_policy'
     run = ExecutionRun(emit, session)
     before = set(session.world.collected)
     await run.emit({'type': 'run_started', 'phase': 'task', 'status': 'started', 'message': request.message,

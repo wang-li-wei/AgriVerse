@@ -64,6 +64,23 @@ LLM_MODEL=填写你的服务商支持的模型ID
 
 采摘与拨叶始终需要前端确认卡。确认后恢复同一个 Mission 并继续 Provider 工具循环，每轮重读版本化 World 和 Observation；授权限定目标范围，模型可以动态选择顺序，扩大范围或世界状态变化时须重新确认。每个工具结果进入模型下一轮输入，采摘状态由独立验证后的内部受控提交产生。真实模型调用失败不会自动回退为模拟规则。
 
+### DeepSeek 接入
+
+后端支持 `LLM_PROVIDER=deepseek`，复用 Chat Completions 工具调用；本地 `.env` 配置：
+
+```dotenv
+LLM_PROVIDER=deepseek
+LLM_BASE_URL=https://api.deepseek.com
+LLM_MODEL=deepseek-flash
+LLM_API_KEY=只在本地填写
+```
+
+重启后端后，`/api/health` 应显示 `REAL_AGENT`、`deepseek` 和配置模型。模型列表与真实只读工具往返已联网验证；仅健康接口显示模式不等于验证成功。完整范围见 [DeepSeek 接入说明](docs/DEEPSEEK_SETUP.md)。
+
+默认关闭 DeepSeek thinking，限制每次回复最多 2048 tokens；稳定接口不发送 beta-only 的 strict 标志，但后端参数/权限/授权检查仍强制执行。历史 DEMO / Responses 消息会在请求边界转换为 Chat 格式；不改写原记录，不展示或保存返回的隐藏推理。切回 Responses 模式仍建议新建会话。
+
+可手动运行 `.venv/bin/python scripts/check_model.py` 做两次真实模型请求与一次只读 Skill 往返；它使用独立模拟 World，不触发采摘或拨叶。日常测试通过 Mock / DEMO 验证，浏览器回归启动的后端强制 DEMO；不要复用已运行的真实模型服务执行预置流程断言。
+
 密钥只由 FastAPI 从 `.env` 读取，`.env` 已忽略；前端不读取任何密钥。真实模式仍使用同一份预置农业数据，不代表真实作业或真实监测。没有密钥时不会擅自调用付费服务。
 
 实现参考：[OpenAI Function Calling](https://developers.openai.com/api/docs/guides/function-calling)、[R3F 安装与 React 兼容说明](https://r3f.docs.pmnd.rs/getting-started/installation)。前端使用 React 19、R3F 9、Drei 10；具体安装版本见 `package-lock.json`。
@@ -140,7 +157,7 @@ scripts/start.sh 开发/生产启动
 
 ```bash
 npm run build
-.venv/bin/python -m pytest -q tests/test_agent.py tests/test_missions.py
+.venv/bin/python -m pytest -q tests/test_agent.py tests/test_missions.py tests/test_providers.py
 # E2E 会自动启动缺失的本地服务，也可以复用已运行服务：
 npx playwright install chromium --only-shell
 npm run test
@@ -168,7 +185,7 @@ P01 现为 12 片独立复叶、两个三果果串。T06 和 LEAF_01 共用 P01_
 - 无真实机器人、传感器、病害识别或诊断，叶斑为附着在小叶曲面上的斑枯病外观模拟，非检测或确诊。
 - 无真实逆运动学、碰撞检测或物理仿真；机械臂为插值关键帧，连杆随端点可视化，收集箱使用简化排布。
 - 已有标准库 SQLite 持久化（`.runtime/agent.sqlite3`），但没有账号、多设备会话绑定、多实例锁或自动留存清理。重启不自动重放不确定动作。
-- 真实模型适配层已经实现并以假 Provider 测试工具循环；未配置 API 密钥，未做真实服务商的联网端到端验证。不同兼容服务商对工具 strict schema 的支持可能不同。
+- 真实模型适配层有 Mock 协议测试，DeepSeek 基本工具调用已联网实测；其他服务商和完整任务验收以各次记录为准。公开仓库不包含密钥，不同开发者须配置自己的本地凭证。
 - DEMO 只覆盖预置任务意图；不做开放领域自主规划。知识库是小型本地样例，没有联网搜索。
 - 暂无模型逐 token 输出、长时间后台任务和通用任务图搜索。支持断流取消、有限工具错误恢复、任务查询/显式恢复；动画仍需页面保持前台，后台节流可能导致回执超时。
 - 主要按桌面 1440×900 设计，窄屏采用场景与对话上下排列；需要 WebGL 2。无障碍提供标签、键盘按钮和减少 UI 动画偏好，三维对象也有对应 DOM 果实选择按钮。

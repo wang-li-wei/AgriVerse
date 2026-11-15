@@ -79,7 +79,7 @@ export function Settings({
             <p className="data-note">
               {mode === "DEMO"
                 ? "本地预设任务编排，真实执行后端 Skill 函数；不代表大模型自主推理。"
-                : "由后端模型进行工具选择与任务编排；确认操作通过确定性的执行器恢复原计划。"}
+                : "由后端模型选择工具；确认后恢复同一任务，依据最新观察继续决策，执行结果通过验证后才提交。"}
             </p>
             <div className="settings-row">
               <span>

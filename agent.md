@@ -45,14 +45,14 @@ AgriVerse 是面向农业智能体创新竞赛的多角色农业 Agent 原型。
 | 任务、版本化计划、确认恢复、每轮最新上下文 | 已实现 |
 | 工具结果回传模型、后续选择工具、有限失败恢复 | 模型调用路径已实现，使用测试 Provider 验证 |
 | Responses / 兼容 Chat Completions 原生工具协议 | 已实现，本地 MockTransport 验证 |
-| 真实服务商模型在线验收 | 尚未完成；不能把配置存在或 Mock 成功等同联网验收 |
+| 真实服务商模型在线验收 | 已实测 DeepSeek 模型列表、两轮只读 Tool Calling，以及浏览器 T01 计划/确认/模型执行/场景验证/提交闭环；[接入记录](docs/DEEPSEEK_SETUP.md)；其他模型和硬件未由此验收 |
 | 默认离线运行 | `DEMO` / `simulation_policy`，明确标记的规则策略 |
 | 感知、成熟度、环境历史、机械臂 | 当前为预置数据与模拟执行 |
 | 记忆与恢复 | SQLite 检查点、任务/对话/工具结果/公开事件；不是自动经验学习 |
 | YOLO、Gemini Max RGB-D、双腕 RGB、AlohaMini、ROS | 未接入 |
 | 通用任务图搜索、向量记忆、自动经验学习、多实例协调 | 未实现 |
 
-`Provider.enabled` 依据配置决定，健康接口的 `REAL_AGENT` 是配置模式标识，不证明远程模型可用。当前交接没有携带任何真实密钥或保证某个本地模型配置一直有效。
+`Provider.enabled` 依据配置决定，健康接口的 `REAL_AGENT` 是配置模式标识，不证明远程模型可用。公开交接不包含密钥。当前开发机已在被忽略的本地 `.env` 配置 DeepSeek；克隆仓库的其他账号需要自行配置，不能从 GitHub 获取该凭证。
 
 真实模式中，确认后的任务继续进入模型循环；不再走旧的 `continue_confirmed()` 固定逐果执行器。离线策略仍有有限意图识别和规则分支，不能将其描述成真实大模型自主性。真实 Provider 请求失败不会自动切换成规则策略掩盖失败。
 
@@ -83,7 +83,7 @@ flowchart TD
 | --- | --- |
 | [backend/main.py](backend/main.py) | FastAPI、Session 缓存与恢复、NDJSON、stage/ack、任务/事件/观察 API、执行锁 |
 | [backend/agent.py](backend/agent.py)：`run_agent`、`_run_agent`、`completion` | Mission 生命周期、恢复、动态模型循环、最新上下文、工具结果、预算和完成检查 |
-| [backend/providers.py](backend/providers.py)：`Provider.turn`、`tool_result` | Responses 与 Chat Completions 协议；不是模型推理结果的固定模拟器 |
+| [backend/providers.py](backend/providers.py)：`Provider.turn`、`tool_result` | Responses / 兼容 Chat Completions / DeepSeek；包含 DEMO→Chat 历史转换，不是固定答案模拟器 |
 | [backend/models.py](backend/models.py)：`World`、`Mission`、`MissionPlan`、`Session` | 独立世界快照、revision、授权计划、角色历史及运行时状态 |
 | [backend/observations.py](backend/observations.py)：`ObservationManager`、`harvestable` | 统一模拟观察、实体关系、资格判断、阶段反馈与来源标记 |
 | [backend/missions.py](backend/missions.py)：`MissionPlanner`、`SafetyManager` | 计划版本、确认授权、动作前和提交前校验、步骤结果 |
@@ -195,13 +195,13 @@ cd AgriVerse
 
 | 变量 | 含义 |
 | --- | --- |
-| LLM_PROVIDER | demo / openai / compatible |
+| LLM_PROVIDER | demo / openai / compatible / deepseek |
 | LLM_BASE_URL | 模型服务基础地址 |
-| LLM_MODEL | 服务商支持的模型 ID，没有统一硬编码默认模型 |
+| LLM_MODEL | 服务商支持的模型 ID；DeepSeek 默认 deepseek-flash，其他服务商需明确配置 |
 | LLM_API_KEY | 仅后端使用的密钥，不提交或打印 |
 | AGRIVERSE_MEMORY_PATH | SQLite 路径，可选，默认 `.runtime/agent.sqlite3` |
 
-模型模式仍使用模拟农业感知与机械臂，不会因为开启模型就变成真实相机/机器人。更换不同 Provider 协议时建议新会话；旧历史的跨协议迁移尚未实现。
+模型模式仍使用模拟农业感知与机械臂，不会因为开启模型就变成真实相机/机器人。从 DEMO / Responses 切到 compatible / DeepSeek 时，在请求边界转换公开历史与工具记录，不改写原记录。反向切回 Responses 或其他未验证的协议迁移仍建议新会话。
 
 ## 9. 常用 API 与恢复入口
 
@@ -236,7 +236,7 @@ SQLite 保存 Conversation/Mission/World/Experience 四类记录，实质是轻�
 # 仅在本地确实存在附带 Node 运行时时使用：
 export PATH="$PWD/.tools/bin:$PATH"
 npm run build
-.venv/bin/python -m pytest -q tests/test_agent.py tests/test_missions.py
+.venv/bin/python -m pytest -q tests/test_agent.py tests/test_missions.py tests/test_providers.py
 # 首次浏览器测试需要可用 Chromium：
 npx playwright install chromium --only-shell
 npm run test
@@ -244,9 +244,13 @@ npm run test
 
 - `tests/test_agent.py`：原有角色、确认、状态、失败和 API 行为。
 - `tests/test_missions.py`：多轮结果输入、动态重规划、确认后模型循环、权限、版本、三态验证、有限恢复、幂等、检查点与两种模型协议。
+- `tests/test_providers.py`：DeepSeek 默认配置、稳定接口、两轮工具协议、历史格式转换、错误和截断结果，不使用真实密钥。
+- `scripts/check_model.py`：显式手动执行的真实模型只读检查，最多两次模型请求，无机器人动作。
 - `tests/e2e/execution.spec.ts`：实际动画、原对象跟随、实时阶段、拒绝回执、断流、超时。
 - `tests/e2e/missions.spec.ts`：刷新、断流后锁释放、同任务恢复和再次确认。
 - `tests/e2e/flows.spec.ts`、`plant.spec.ts`：三角色、报告/环境、窄屏、植株、遮挡、重置和回滚。
+
+浏览器回归启动的服务通过 Playwright 配置强制 DEMO，防止本地 DeepSeek 配置触发付费调用；需避免复用现有 REAL_AGENT 服务。
 
 2026-11-15 Agent-First 阶段历史基线：构建成功；后端 38 项通过；完整 E2E 10 项通过。完成态折叠调整后另跑多果专项 1 项通过，决策事实增强后重跑后端 38 项通过。不是声称所有最终微调后又完整跑了一遍 E2E，也不是当前文档更新时重跑的结果。
 
@@ -281,4 +285,11 @@ npm run test
 
 | 日期 | 内容 | 验证范围 |
 | --- | --- | --- |
+| 2026-11-15 | 接入 DeepSeek Flash，增加稳定接口适配、历史转换、只读连接检查和明确收集箱字段；本地 .env 保存凭证，源码/说明同步 GitHub | 构建成功；后端 46 项；三角色 DEMO 浏览器 1 项；真实 DeepSeek 两轮只读及浏览器 T01 采摘闭环，证据见 DEEPSEEK_SETUP |
 | 2026-11-15 | 建立项目主题、真实能力、调用链、19 项 Skill、状态/场景约定、运行/测试与持久化总览；明确后续修改更新 agent.md 并同步 GitHub | 根据当前源码和已保存报告核对；本次仅文档变更，检查链接与差异，不重新声明业务测试通过 |
+
+### DeepSeek 接入补充
+
+新增 `deepseek` Provider、默认官方地址/模型、非 thinking 工具模式、2048 输出上限及稳定端点 Schema 兼容。DeepSeek 返回的推理字段不会进入公开事件或新保存的模型历史。`query_crop_status` 保留 collected，同时新增 basket_count，避免模型误读收集箱统计。Settings 的模型说明已改为确认后继续同一任务决策。
+
+真实浏览器实测已完成同 Mission 的计划、确认、模型选择采摘动作、原 Group 回执及最终提交。当前实际验证与重跑结果见 [DEEPSEEK_SETUP](docs/DEEPSEEK_SETUP.md)；本地 `.env` 密钥禁止进入任何提交、日志、截图或证据。

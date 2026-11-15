@@ -8,6 +8,8 @@ export default defineConfig({
     {
       command:
         ".venv/bin/python -m uvicorn backend.main:app --host 127.0.0.1 --port 8000",
+      // Regression scenarios exercise fixture flows, never a developer's paid model key.
+      env: { LLM_PROVIDER: "demo", LLM_API_KEY: "", LLM_MODEL: "" },
       url: "http://127.0.0.1:8000/api/health",
       reuseExistingServer: true,
     },

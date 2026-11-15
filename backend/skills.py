@@ -30,7 +30,7 @@ DESCRIPTIONS = {
     'update_fruit_status': '内部验证提交接口，不向模型开放',
     'search_agri_knowledge': '用 query 检索本地农业知识',
     'generate_farm_report': '基于已采摘结果生成生产管理报告',
-    'query_crop_status': '查询作物与采摘统计',
+    'query_crop_status': '查询作物、可采摘数量与收集箱统计（basket_count）',
     'query_environment_history': '查询 days 天预置环境历史（1-7 天），不是实时数据',
     'explain_plant_part': '解释并高亮 part：叶片、茎秆、花序、果实',
     'explain_ripeness_stage': '解释绿熟、转色、红熟阶段',
@@ -300,7 +300,8 @@ class SkillRunner:
 
     async def query_crop_status(self, a: SkillArgs) -> dict:
         w = self.world
-        return {'plants': w.plants, 'available': len(self.eligible()), 'collected': len(w.collected), 'on_plant': sum(f['status'] == 'on_plant' for f in w.fruits)}
+        return {'plants': w.plants, 'available': len(self.eligible()), 'collected': len(w.collected),
+                'basket_count': len(w.collected), 'on_plant': sum(f['status'] == 'on_plant' for f in w.fruits)}
 
     async def query_environment_history(self, a: SkillArgs) -> dict:
         w = self.world

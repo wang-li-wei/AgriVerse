@@ -1,0 +1,35 @@
+{
+  "ok": true,
+  "live_model": true,
+  "provider": "deepseek",
+  "model": "deepseek-flash",
+  "simulation_execution": true,
+  "mission_id": "a3e7caf9-6f92-464e-baa2-aa8f31e9f3dc",
+  "mission_status": "success",
+  "collected": [
+    "T01"
+  ],
+  "basket_count": 1,
+  "run_ids": [
+    "f605bf74-c9df-40f4-9007-a9266b5ddbe5",
+    "747c0e79-7afa-4f1e-bf89-676e12da9424"
+  ],
+  "tool_calls": [
+    "inspect_greenhouse",
+    "identify_tomatoes",
+    "get_harvest_plan",
+    "play_robot_action"
+  ],
+  "stages": [
+    "approach",
+    "align",
+    "grip",
+    "detach",
+    "transport",
+    "release",
+    "retreat",
+    "verify"
+  ],
+  "original_group_verified": true,
+  "video": "live-single-harvest.webm"
+}
